@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    {% block meta %}<!-- block meta  -->{% endblock %}
+    <title>{% block title %} ? {% endblock %} - Awesome Python Webapp</title>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/static/css/uikit.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+    <link rel="stylesheet" href="/static/css/awesome.css" />
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/sticky.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/awesome.js"></script>
+    <script src="/static/js/echarts.js"></script>
+    {% block beforehead %}<!-- before head  -->{% endblock %}
+</head>
+<body >
+<div class="uk-grid "><div  class="uk-width-1-1">
+<nav class="uk-navbar">
+
+    <a class="uk-navbar-brand" href="/api/stats"><i class="uk-icon-home"></i> 财经数据</a>
+
+    <ul class="uk-navbar-nav">
+        <li class="uk-parent uk-active" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
+            <a href=""> 数据分类</a>
+
+            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom" style="top: 40px; left: 0px;">
+                <ul class="uk-nav uk-nav-navbar">
+                    <li><a href="/api/chart">图表</a></li>
+                    <li><a href="/api/stock">大盘</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="/api/stocknews">新闻数据</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="http://docs.jinkan.org/docs/jinja2/templates.html"  target="_blank">Jinja2</a></li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+
+    <div class="uk-navbar-content"><a href="http://tushare.org/" target="_blank">TuShare</a></div>
+
+    <div class="uk-navbar-content uk-hidden-small">
+        <form class="uk-form uk-margin-remove uk-display-inline-block">
+            <input id="stockCode" type="text" placeholder="股票代码">
+            <button id="queryBtn" class="uk-button uk-button-primary">查询</button>
+        </form>
+    </div>
+
+    <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+        <div class="uk-button-group">
+            <a class="uk-button uk-button-danger" href="http://www.jianshu.com/p/682c24aef525"  target="_blank">DataFrame操作</a>
+            <button class="uk-button uk-button-danger">Button</button>
+        </div>
+    </div>
+
+</nav>
+            <!-- content -->
+            {% block content %}
+            {% endblock %}
+            <!-- // content -->
+</div></div>
+</body>
+</html>

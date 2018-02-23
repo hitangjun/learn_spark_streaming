@@ -1,0 +1,66 @@
+{% extends 'stock/__chart_base__.html' %}
+
+{% block title %}数据统计分析--大盘数据{% endblock %}
+
+{% block beforehead %}
+
+<style>
+    .tm-article-subtitle {
+        padding-left: 6px;
+        border-left: 3px solid #1FA2D6;
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .uk-width-1-1{
+        padding: 5px;
+    }
+
+</style>
+
+<script>
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+    <div  class="uk-width-1-1">
+        <h2 class="tm-article-subtitle">大盘数据</h2>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                <tr>
+                    <th> 序号</th>
+                    <th>code:代码</th>
+                    <th>    name:名称</th>
+                    <th>    changepercent:涨跌幅</th>
+                    <th>    trade:现价</th>
+                    <th>    open:开盘价收盘点位</th>
+                    <th>    high:最高价</th>
+                    <th>    low:最低价</th>
+                    <th>    settlement:昨日收盘价</th>
+                    <th>    volume:成交量</th>
+                    <th>    turnoverratio:换手率</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ele in list %}
+                <tr >
+                    <td>{{ loop.index }}</td>
+                    <td><a href="/api/chart/{{ele.code}}">{{ ele.code }}</a></td>
+                    <td>{{ ele.name }}</td>
+                    <td>{{ ele.changepercent }}</td>
+                    <td>{{ ele.trade }}</td>
+                    <td>{{ ele.open }}</td>
+                    <td>{{ ele.high }}</td>
+                    <td>{{ ele.low }}</td>
+                    <td>{{ ele.settlement }}</td>
+                    <td>{{ ele.volume }}</td>
+                    <td>{{ ele.turnoverratio }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

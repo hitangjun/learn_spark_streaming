@@ -1,0 +1,155 @@
+{% extends 'stock/__chart_base__.html' %}
+
+{% block title %}数据统计分析{% endblock %}
+
+{% block beforehead %}
+
+<style>
+    .tm-article-subtitle {
+        padding-left: 6px;
+        border-left: 3px solid #1FA2D6;
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .uk-width-1-1{
+        padding: 5px;
+    }
+
+</style>
+
+<script>
+//    Vue.filter('parseJson', function (value) {
+//        return jQuery.parseJSON(value).data
+//    });
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+    <div  class="uk-width-1-1">
+        <h2 class="tm-article-subtitle">自选股数据</h2>
+        <div class="uk-grid tm-grid-truncate" data-uk-grid-margin="">
+            {% for ele in self_stock %}
+            <div class="uk-width-medium-1-3">
+                <div class="uk-panel uk-panel-box uk-panel-box-primary">
+                    <h3 class="uk-panel-title"><i class="uk-icon-bookmark"></i> <a href="/api/chart/{{ele.code}}">{{ele.name}}[{{ele.code}}]   {{ele.price}}</a></h3>
+                    {{ele.date}} {{ele.time}}
+                    <div class="uk-overflow-container">
+                        <table class="uk-table uk-table-striped" style="color:{% if ele.price >= ele.pre_close %}red{% else %} green {% endif %}">
+                            <thead>
+                            <th>今开</th>
+                            <th>昨收</th>
+                            <th>最高</th>
+                            <th>最低</th>
+                            <th>成交量</th>
+                            <th>成交金额(元)</th>
+                            </thead>
+                            <tbody>
+                            <tr >
+                                <td>{{ele.open}}</td>
+                                <td>{{ele.pre_close}}</td>
+                                <td>{{ele.high}}</td>
+                                <td>{{ele.low}}</td>
+                                <td>{{ele.volume}}</td>
+                                <td>{{ele.amount}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--<ul class="uk-list uk-list-striped">-->
+                    <!--<li>买一:{{ele.b1_v}} {{ele.b1_p}}卖一:{{ele.a1_v}} {{ele.a1_p}}</li>-->
+                    <!--<li>买二:{{ele.b2_v}} {{ele.b2_p}}卖二:{{ele.a2_v}} {{ele.a2_p}}</li>-->
+                    <!--<li>买三:{{ele.b3_v}} {{ele.b3_p}}卖三:{{ele.a3_v}} {{ele.a3_p}}</li>-->
+                    <!--<li>买四:{{ele.b4_v}} {{ele.b4_p}}卖四:{{ele.a4_v}} {{ele.a4_p}}</li>-->
+                    <!--<li>买五:{{ele.b5_v}} {{ele.b5_p}}卖五:{{ele.a5_v}} {{ele.a5_p}}</li>-->
+                    <!--</ul>-->
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div  class="uk-width-1-1">
+        <h2 class="tm-article-subtitle">大盘指数</h2>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                <tr>
+                    <th>code:指数代码</th>
+                    <th>    name:指数名称</th>
+                    <th>    change:涨跌幅</th>
+                    <th>    open:开盘点位</th>
+                    <th>    preclose:昨日收盘点位</th>
+                    <th>    close:收盘点位</th>
+                    <th>    high:最高点位</th>
+                    <th>    low:最低点位</th>
+                    <th>    volume:成交量(手)</th>
+                    <th>    amount:成交金额（亿元）</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ele in market_index %}
+                <tr  style="color:{% if ele.change >= 0 %}red{% else %} green {% endif %}">
+                    <td><a href="/api/chart/{{ele.code}}">{{ ele.code }}</a></td>
+                    <td>{{ ele.name }}</td>
+                    <td>{{ ele.change }}</td>
+                    <td>{{ ele.open }}</td>
+                    <td>{{ ele.preclose }}</td>
+                    <td>{{ ele.close }}</td>
+                    <td>{{ ele.high }}</td>
+                    <td>{{ ele.low }}</td>
+                    <td>{{ ele.volume }}</td>
+                    <td>{{ ele.amount }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div  class="uk-width-1-1">
+        <h2 class="tm-article-subtitle">电影票房</h2>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                <tr>
+                    <th>Irank 排名</th>
+                    <th>MovieName 影片名</th>
+                    <th>BoxOffice 实时票房（万）</th>
+                    <th>boxPer 票房占比 （%）</th>
+                    <th>movieDay 上映天数</th>
+                    <th>sumBoxOffice 累计票房（万）</th>
+                    <th>time 数据获取时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ele in boxoffice %}
+                <tr>
+                    <td>{{ ele.Irank }}</td>
+                    <td>{{ ele.MovieName }}</td>
+                    <td>{{ ele.BoxOffice }}</td>
+                    <td>{{ ele.boxPer }}</td>
+                    <td>{{ ele.movieDay }}</td>
+                    <td>{{ ele.sumBoxOffice }}</td>
+                    <td>{{ ele.time }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div  class="uk-width-1-1">
+    <h2 class="tm-article-subtitle">新闻事件数据</h2>
+        <ul class="uk-list uk-list-striped uk-width-medium-1-2">
+            {% for ele in news %}
+                <li><a href="{{ele.url}}" target="_blank">{{ele.title}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+{% endblock %}

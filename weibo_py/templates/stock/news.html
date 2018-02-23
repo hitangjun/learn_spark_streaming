@@ -1,0 +1,42 @@
+{% extends 'stock/__chart_base__.html' %}
+
+{% block title %}新闻数据{% endblock %}
+
+{% block beforehead %}
+
+<style>
+    .tm-article-subtitle {
+        padding-left: 6px;
+        border-left: 3px solid #1FA2D6;
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .uk-width-1-1{
+        padding: 5px;
+    }
+
+</style>
+
+<script>
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+    <div  class="uk-width-1-1">
+        <h2 class="tm-article-subtitle">财经新闻数据</h2>
+        <div class="uk-grid tm-grid-truncate" data-uk-grid-margin="">
+            {% for ele in news %}
+            <div class="uk-width-medium-1-3">
+                <div class="uk-panel uk-panel-box uk-panel-box-primary" title="{{ele.content}}">
+                    <h3 class="uk-panel-title"><i class="uk-icon-bookmark"></i> <a href="{{ele.url}}">{{ele.title}}</a></h3>
+                    {{ele.time}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
